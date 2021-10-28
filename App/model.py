@@ -32,6 +32,7 @@ from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
 from DISClib.ADT import orderedmap as om
 from datetime import datetime as dt
+from DISClib.Algorithms.Sorting import mergesort as ms
 assert cf
 
 """
@@ -45,7 +46,8 @@ def newAnalyzer():
 
     analyzer = {"ufos": None,
                 "dateIndex": None,
-                "cityIndex": None
+                "cityIndex": None,
+                "hourIndex": None
                 }
     
     analyzer["ufos"] = lt.newList("SINGLE_LINKED")
@@ -53,7 +55,8 @@ def newAnalyzer():
                                         comparefunction=CmpDates)
     analyzer["cityIndex"] = om.newMap(omaptype = "RBT",
                                         comparefunction=CmpCity)
-
+    analyzer["hourIndex"] = om.newMap(omaptype = "RBT",
+                                        comparefunction=CmpCity)
     return analyzer
 # Funciones para agregar informacion al catalogo
 
@@ -111,8 +114,33 @@ def Avistamientos_Ciudad(cont, ciudad):
 
     mapa_ciudad = cont["cityIndex"]
     avistamientos = om.get(mapa_ciudad, ciudad)["value"]
-    print(avistamientos)
-    print(lt.size(avistamientos))
+    
+    r = ms.sort(avistamientos, CmpFechaHoraInvertido)
+
+    q = 0
+    for ufos in lt.iterator(avistamientos):
+
+        if q < 3:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        q += 1
+
+    print("")
+    print("**********************************************")
+    print("")
+
+    y = 0
+    z = lt.size(avistamientos) - 4
+    for ufos in lt.iterator(avistamientos):
+
+        if y > z:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        y += 1
+    
+
+    
+    
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -134,3 +162,11 @@ def CmpCity(city1, city2):
         return 1
     else:
         return -1
+
+def CmpFechaHora(ufo1, ufo2):
+
+    return dt.fromisoformat(ufo1["datetime"]) > dt.fromisoformat(ufo2["datetime"])
+
+def CmpFechaHoraInvertido(ufo1, ufo2):
+
+    return dt.fromisoformat(ufo1["datetime"]) < dt.fromisoformat(ufo2["datetime"])
