@@ -30,6 +30,8 @@ from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
 from DISClib.DataStructures import mapentry as me
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.ADT import orderedmap as om
+from datetime import datetime as dt
 assert cf
 
 """
@@ -39,12 +41,96 @@ los mismos.
 
 # Construccion de modelos
 
+def newAnalyzer():
+
+    analyzer = {"ufos": None,
+                "dateIndex": None,
+                "cityIndex": None
+                }
+    
+    analyzer["ufos"] = lt.newList("SINGLE_LINKED")
+    analyzer["dateIndex"] = om.newMap(omaptype = "RBT",
+                                        comparefunction=CmpDates)
+    analyzer["cityIndex"] = om.newMap(omaptype = "RBT",
+                                        comparefunction=CmpCity)
+
+    return analyzer
 # Funciones para agregar informacion al catalogo
 
+def addUfo(analyzer, ufo):
+
+    lt.addLast(analyzer["ufos"], ufo)
+    updateDateIndex(analyzer["dateIndex"], ufo)
+    updateCityIndex(analyzer["cityIndex"], ufo)
+
+    return analyzer
+
+def updateDateIndex(map, ufo):
+
+    ocurred_date = ufo["datetime"]
+    ufo_date = dt.strptime(ocurred_date, "%Y-%m-%d %H:%M:%S")
+    entry = om.get(map, ufo_date.date())
+
+    if entry is None:
+        lista_ufos = lt.newList("ARRAY_LIST")
+        lt.addLast(lista_ufos, ufo)
+        date_entry = lista_ufos
+        om.put(map, ufo_date.date(), date_entry)
+    else:
+        date_entry = me.getValue(entry)
+        lt.addLast(date_entry, ufo)
+        me.setValue(entry, date_entry)
+
+    return map
+
+def updateCityIndex(map, ufo):
+
+    ocurred_city = ufo["city"]
+    entry = om.get(map, ocurred_city)
+
+    if entry is None:
+        lista_ufos = lt.newList("ARRAY_LIST")
+        lt.addLast(lista_ufos, ufo)
+        city_entry = lista_ufos
+        om.put(map, ocurred_city, city_entry)
+    else:
+        city_entry = me.getValue(entry)
+        lt.addLast(city_entry, ufo)
+        me.setValue(entry, city_entry)
+
+    return map
+
+"""
+
+"""
 # Funciones para creacion de datos
 
 # Funciones de consulta
 
+def Avistamientos_Ciudad(cont, ciudad):
+
+    mapa_ciudad = cont["cityIndex"]
+    avistamientos = om.get(mapa_ciudad, ciudad)["value"]
+    print(avistamientos)
+    print(lt.size(avistamientos))
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+def CmpDates(date1, date2):
+
+    if (date1 == date2):
+        return 0
+    elif (date1 > date2):
+        return 1
+    else:
+        return -1
+
+def CmpCity(city1, city2):
+
+    if (city1 == city2):
+        return 0
+    elif (city1 > city2):
+        return 1
+    else:
+        return -1

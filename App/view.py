@@ -25,6 +25,7 @@ import sys
 import controller
 from DISClib.ADT import list as lt
 assert cf
+from DISClib.ADT import orderedmap as om
 
 
 """
@@ -43,13 +44,14 @@ def printMenu():
     print("Bienvenido")
     print("1- Inicializar Analizador")
     print("2- Cargar informacion de UFOS")
-    print("3- REQ1: Contar los avistamientos en una ciudad")
-    print("4- REQ2: Contar los avistamientos por duración")
-    print("5- REQ3: Contar avistamientos por hora/minutos del día")
-    print("6- REQ4: Contar los avsitamientos en un rango de fechas")
-    print("7- REQ5: Contar los avistamientos de una zona geografica")
-    print("8- REQ6: Vizualizar los avistamientos de una zona geografica")
-    print("9- Fin del programa")
+    print("3- Altura y elementos del arbol ciudades")
+    print("4- REQ1: Contar los avistamientos en una ciudad")
+    print("5- REQ2: Contar los avistamientos por duración")
+    print("6- REQ3: Contar avistamientos por hora/minutos del día")
+    print("7- REQ4: Contar los avsitamientos en un rango de fechas")
+    print("8- REQ5: Contar los avistamientos de una zona geografica")
+    print("9- REQ6: Vizualizar los avistamientos de una zona geografica")
+    print("0- Fin del programa")
 
 catalog = None
 
@@ -60,10 +62,28 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Cargando información de los archivos ....")
+        print("\nInicializando. . . .")
+        cont = controller.init()
+        
 
     elif int(inputs[0]) == 2:
-        pass
+        print("\nCargando información de los archivos ....")
+        controller.loadData(cont, ufo_file)
+        print("Datos cargados")
+        print("\n")
+
+    elif int(inputs[0]) == 3:
+        contados = lt.size(cont["ufos"])
+        print("Ufos contados " + str(contados))
+        altura_arbol_ciudad = om.size(cont["cityIndex"])
+        print("Altura del arbol ciudades: " + str(altura_arbol_ciudad))
+        
+
+    elif int(inputs[0]) == 4:
+
+        ciudad = input("Que ciudad desea revisar: ")
+        avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
+
 
     else:
         sys.exit(0)
