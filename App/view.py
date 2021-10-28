@@ -82,8 +82,10 @@ while True:
     elif int(inputs[0]) == 4:
 
         ciudad = input("Que ciudad desea revisar: ")
+        print("")
+        print("")
         avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
-
+        
 
     else:
         sys.exit(0)
