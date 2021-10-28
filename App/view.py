@@ -71,10 +71,12 @@ while True:
         controller.loadData(cont, ufo_file)
         print("Datos cargados")
         print("\n")
-
-    elif int(inputs[0]) == 3:
         contados = lt.size(cont["ufos"])
         print("Ufos contados " + str(contados))
+        print("")
+
+    elif int(inputs[0]) == 3:
+        
         cantidad_arbol_ciudad = om.size(cont["cityIndex"])
         print("Numero de ciudades: " + str(cantidad_arbol_ciudad))
         altura_arbol_ciudad = om.height(cont["cityIndex"])

@@ -171,7 +171,7 @@ def Ufos_Hora(lim_inf, lim_sup, cont):
 
     valores = om.values(mapa_hora, hora_inf.time(), hora_sup.time())
 
-    lista_horas = lt.newList()
+    lista_horas = lt.newList("ARRAY_LIST")
 
     for valor in lt.iterator(valores):
 
@@ -184,8 +184,6 @@ def Ufos_Hora(lim_inf, lim_sup, cont):
     print("")
     print("")
     
-    r = ms.sort(lista_horas, CmpFechaHora)
-
     q = 0
     for ufos in lt.iterator(lista_horas):
 
@@ -232,6 +230,9 @@ def CmpCity(city1, city2):
         return -1
 
 def CmpFechaHora(ufo1, ufo2):
+
+    
+    ufo_date = dt.strptime(ufo1["datetime"], "%Y-%m-%d %H:%M")
 
     return dt.fromisoformat(ufo1["datetime"]) < dt.fromisoformat(ufo2["datetime"])
 
