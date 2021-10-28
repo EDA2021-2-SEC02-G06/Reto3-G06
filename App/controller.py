@@ -54,3 +54,7 @@ def loadData(analyzer, ufo_file):
 def Avistamientos_Ciudad(cont, ciudad):
 
     return model.Avistamientos_Ciudad(cont, ciudad)
+
+def Ufos_Hora(lim_inf, lim_sup, cont):
+
+    return model.Ufos_Hora(lim_inf, lim_sup, cont)

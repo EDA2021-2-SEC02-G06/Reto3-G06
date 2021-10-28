@@ -87,7 +87,30 @@ while True:
         print("")
         avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
         
+    elif int(inputs[0]) == 5:
+        pass
+
+    elif int(inputs[0]) == 6:
+        print("")
+        lim_inf = input("Ingrese la hora mas baja (mas temprana) que desea buscar: ")
+        print("")
+        lim_sup = input("Ingrese la hora mas alta (mas tardia) que desea buscar: ")
+        print("")
+        buscar_rango = controller.Ufos_Hora(lim_inf, lim_sup, cont)
+        
+    elif int(inputs[0]) == 7:
+        pass
+
+    elif int(inputs[0]) == 8:
+        pass
+
+    elif int(inputs[0]) == 9:
+        pass
+
+    elif int(inputs[0]) == 0:
+        pass
 
     else:
         sys.exit(0)
+
 sys.exit(0)

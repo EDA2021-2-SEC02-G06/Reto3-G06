@@ -25,6 +25,7 @@
  """
 
 
+from DISClib.DataStructures.arraylist import addLast
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.ADT import map as mp
@@ -56,7 +57,8 @@ def newAnalyzer():
     analyzer["cityIndex"] = om.newMap(omaptype = "RBT",
                                         comparefunction=CmpCity)
     analyzer["hourIndex"] = om.newMap(omaptype = "RBT",
-                                        comparefunction=CmpCity)
+                                        comparefunction=CmpHour)
+
     return analyzer
 # Funciones para agregar informacion al catalogo
 
@@ -65,6 +67,7 @@ def addUfo(analyzer, ufo):
     lt.addLast(analyzer["ufos"], ufo)
     updateDateIndex(analyzer["dateIndex"], ufo)
     updateCityIndex(analyzer["cityIndex"], ufo)
+    updateHourIndex(analyzer["hourIndex"], ufo)
 
     return analyzer
 
@@ -100,6 +103,25 @@ def updateCityIndex(map, ufo):
         city_entry = me.getValue(entry)
         lt.addLast(city_entry, ufo)
         me.setValue(entry, city_entry)
+
+    return map
+
+def updateHourIndex(map, ufo):
+
+    ocurred_date = ufo["datetime"]
+    ocurred_date = ocurred_date[0: 16]
+    ufo_date = dt.strptime(ocurred_date, "%Y-%m-%d %H:%M")
+    entry = om.get(map, ufo_date.time())
+
+    if entry is None:
+        lista_ufos = lt.newList("ARRAY_LIST")
+        lt.addLast(lista_ufos, ufo)
+        date_entry = lista_ufos
+        om.put(map, ufo_date.time(), date_entry)
+    else:
+        date_entry = me.getValue(entry)
+        lt.addLast(date_entry, ufo)
+        me.setValue(entry, date_entry)
 
     return map
 
@@ -139,8 +161,54 @@ def Avistamientos_Ciudad(cont, ciudad):
         y += 1
     
 
+    return None
+
+def Ufos_Hora(lim_inf, lim_sup, cont):
+
+    hora_inf = dt.strptime(lim_inf, "%H:%M")
+    hora_sup = dt.strptime(lim_sup, "%H:%M")
+    mapa_hora = cont["hourIndex"]
+
+    valores = om.values(mapa_hora, hora_inf.time(), hora_sup.time())
+
+    lista_horas = lt.newList()
+
+    for valor in lt.iterator(valores):
+
+        for val in lt.iterator(valor):
+
+            lt.addLast(lista_horas, val)
+            
     
+    print("Total de avistamientos en el rango: " + str(lt.size(lista_horas)))
+    print("")
+    print("")
     
+    r = ms.sort(lista_horas, CmpFechaHora)
+
+    q = 0
+    for ufos in lt.iterator(lista_horas):
+
+        if q < 3:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        q += 1
+
+    print("")
+    print("**********************************************")
+    print("")
+
+    y = 0
+    z = lt.size(lista_horas) - 4
+    for ufos in lt.iterator(lista_horas):
+
+        if y > z:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        y += 1
+    
+
+    return None
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -165,8 +233,17 @@ def CmpCity(city1, city2):
 
 def CmpFechaHora(ufo1, ufo2):
 
-    return dt.fromisoformat(ufo1["datetime"]) > dt.fromisoformat(ufo2["datetime"])
+    return dt.fromisoformat(ufo1["datetime"]) < dt.fromisoformat(ufo2["datetime"])
 
 def CmpFechaHoraInvertido(ufo1, ufo2):
 
     return dt.fromisoformat(ufo1["datetime"]) < dt.fromisoformat(ufo2["datetime"])
+
+def CmpHour(hour1, hour2):
+
+    if (hour1 == hour2):
+        return 0
+    elif (hour1 > hour2):
+        return 1
+    else:
+        return -1
