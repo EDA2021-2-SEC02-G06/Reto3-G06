@@ -75,6 +75,38 @@ while True:
         print("Ufos contados " + str(contados))
         print("")
 
+        ufos = cont["ufos"]
+        print("Primeros 5 elementos: ")
+        print("")
+        q = 0
+        while q < 5:
+
+            print(lt.getElement(ufos, q))
+            print("")
+            print("------------------------------------")
+            print("")
+            q +=  1
+
+        print("")
+        print("**********************************************")
+        print("")
+
+        print("Últimos 5 elementos")
+        print("")
+        y = 0
+        z = lt.size(ufos) - 6
+       
+        while y < 5:
+
+            print(lt.getElement(ufos, z))
+            print("")
+            print("-----------------------------------------")
+            print("")
+
+            z += 1
+            y += 1
+        
+
     elif int(inputs[0]) == 3:
         
         cantidad_arbol_ciudad = om.size(cont["cityIndex"])
