@@ -34,10 +34,18 @@ se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
 
+ufo_file = "UFOS//UFOS-utf8-small.csv"
+cont = None
+
 def printMenu():
+    print("\n")
+    print("***********************************************************************************************")
     print("Bienvenido")
-    print("1- Cargar información en el catálogo")
-    print("2- ")
+    print("1- Inicializar Analizador")
+    print("2- Cargar informacion de UFOS")
+    print("3- REQ1: Contar los avistamientos en una ciudad")
+    print("4- REQ2: Contar los avistamientos por duración")
+    
 
 catalog = None
 
