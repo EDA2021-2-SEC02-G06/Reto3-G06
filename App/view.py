@@ -75,9 +75,10 @@ while True:
     elif int(inputs[0]) == 3:
         contados = lt.size(cont["ufos"])
         print("Ufos contados " + str(contados))
-        altura_arbol_ciudad = om.size(cont["cityIndex"])
+        cantidad_arbol_ciudad = om.size(cont["cityIndex"])
+        print("Numero de ciudades: " + str(cantidad_arbol_ciudad))
+        altura_arbol_ciudad = om.height(cont["cityIndex"])
         print("Altura del arbol ciudades: " + str(altura_arbol_ciudad))
-        
 
     elif int(inputs[0]) == 4:
 
