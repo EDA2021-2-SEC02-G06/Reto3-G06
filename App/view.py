@@ -45,7 +45,11 @@ def printMenu():
     print("2- Cargar informacion de UFOS")
     print("3- REQ1: Contar los avistamientos en una ciudad")
     print("4- REQ2: Contar los avistamientos por duración")
-    
+    print("5- REQ3: Contar avistamientos por hora/minutos del día")
+    print("6- REQ4: Contar los avsitamientos en un rango de fechas")
+    print("7- REQ5: Contar los avistamientos de una zona geografica")
+    print("8- REQ6: Vizualizar los avistamientos de una zona geografica")
+    print("9- Fin del programa")
 
 catalog = None
 
