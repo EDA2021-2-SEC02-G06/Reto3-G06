@@ -58,3 +58,8 @@ def Avistamientos_Ciudad(cont, ciudad):
 def Ufos_Hora(lim_inf, lim_sup, cont):
 
     return model.Ufos_Hora(lim_inf, lim_sup, cont)
+
+def Ufos_Dia(lim_inf1, lim_sup1, cont):
+
+    return model.Ufos_Dia(lim_inf1, lim_sup1, cont)
+

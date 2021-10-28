@@ -208,6 +208,52 @@ def Ufos_Hora(lim_inf, lim_sup, cont):
 
     return None
 
+def Ufos_Dia(lim_inf1, lim_sup1, cont):
+
+    fecha_inf = dt.strptime(lim_inf1, "%Y-%m-%d")
+    fecha_sup = dt.strptime(lim_sup1, "%Y-%m-%d")
+    mapa_fecha = cont["dateIndex"]
+
+    valores = om.values(mapa_fecha, fecha_inf.date(), fecha_sup.date())
+
+    lista_fechas = lt.newList("ARRAY_LIST")
+
+    for valor in lt.iterator(valores):
+
+        for val in lt.iterator(valor):
+
+            lt.addLast(lista_fechas, val)
+            
+    
+    print("Total de avistamientos en el rango: " + str(lt.size(lista_fechas)))
+    print("")
+    print("")
+    
+    q = 0
+    for ufos in lt.iterator(lista_fechas):
+
+        if q < 3:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        q += 1
+
+    print("")
+    print("**********************************************")
+    print("")
+
+    y = 0
+    z = lt.size(lista_fechas) - 4
+    for ufos in lt.iterator(lista_fechas):
+
+        if y > z:
+            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+            print("-----------------------------------------------------------")        
+        y += 1
+    
+
+    return None
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento

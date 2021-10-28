@@ -133,7 +133,12 @@ while True:
         buscar_rango = controller.Ufos_Hora(lim_inf, lim_sup, cont)
         
     elif int(inputs[0]) == 7:
-        pass
+        print("")
+        lim_inf1 = input("Ingrese el día mas bajo (mas antiguo) que desea buscar: ")
+        print("")
+        lim_sup1 = input("Ingrese el día mas alto (mas moderno) que desea buscar: ")
+        print("")
+        buscar_rango1 = controller.Ufos_Dia(lim_inf1, lim_sup1, cont)
 
     elif int(inputs[0]) == 8:
         pass
