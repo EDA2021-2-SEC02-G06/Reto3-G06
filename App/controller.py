@@ -83,4 +83,8 @@ def num_ufomax(lista):
     
     return model.num_ufomax(lista)
 
+def Ufos_Coordenadas(inf_long, max_long, min_lat, max_lat, cont):
+
+    return model.Ufos_Coordenadas(inf_long, max_long, min_lat, max_lat, cont)
+
 

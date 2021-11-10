@@ -48,7 +48,8 @@ def newAnalyzer():
     analyzer = {"ufos": None,
                 "dateIndex": None,
                 "cityIndex": None,
-                "hourIndex": None
+                "hourIndex": None,
+                "placeIndex": None
                 }
     
     analyzer["ufos"] = lt.newList("SINGLE_LINKED")
@@ -60,7 +61,8 @@ def newAnalyzer():
                                         comparefunction=CmpHour)
     analyzer["duracionIndex"] = om.newMap(omaptype = "RBT",
                                         comparefunction=CmpHour)
-    
+    analyzer["placeIndex"] = om.newMap(omaptype = "RBT",
+                                        comparefunction=CmpPlace)
 
     return analyzer
 # Funciones para agregar informacion al catalogo
@@ -72,6 +74,7 @@ def addUfo(analyzer, ufo):
     updateCityIndex(analyzer["cityIndex"], ufo)
     updateHourIndex(analyzer["hourIndex"], ufo)
     updateDuracionIndex(analyzer["duracionIndex"],ufo)
+    updatePlaceIndex(analyzer["placeIndex"], ufo)
 
     return analyzer
 
@@ -142,6 +145,23 @@ def updateDuracionIndex(map, ufo):
         city_entry = me.getValue(entry)
         lt.addLast(city_entry, ufo)
         me.setValue(entry, city_entry)
+
+def updatePlaceIndex(map, ufo):
+
+    ocurred_place = ufo["longitude"]
+    ufo_place = round(float(ocurred_place), 2) 
+    entry = om.get(map, ufo_place)
+
+    if entry is None:
+        lista_ufos = lt.newList("ARRAY_LIST")
+        lt.addLast(lista_ufos, ufo)
+        place_entry = lista_ufos
+        om.put(map, ufo_place, place_entry)
+    else:
+        place_entry = me.getValue(entry)
+        lt.addLast(place_entry, ufo)
+        me.setValue(entry, place_entry)
+
 """
 
 """
@@ -318,6 +338,34 @@ def ufomaxima(arbol,llave):
 def num_ufomax(lista):
 
     return lt.size(lista["value"])
+
+def Ufos_Coordenadas(inf_long, max_long, min_lat, max_lat, cont):
+
+    mapa_lugar = cont["placeIndex"]
+    #print(mapa_lugar)
+    #print(inf_long, max_long)
+    valores = om.values(mapa_lugar, inf_long, max_long)
+    #value = om.get(mapa_lugar, inf_long)
+    lista_lugares_1 = lt.newList("ARRAY_LIST")
+
+    for valor in lt.iterator(valores):
+
+        for val in lt.iterator(valor):
+
+            lt.addLast(lista_lugares_1, val)
+    
+    #print(valores)
+    r = ms.sort(lista_lugares_1, CmpLat)
+
+    lista_lugares2 = lt.newList("ARRAY_LIST")
+
+    for ufos in lt.iterator(lista_lugares_1):
+        latitud = round(float(ufos["latitude"]), 2)
+        if latitud <= max_lat and latitud >= min_lat:
+            lt.addLast(lista_lugares2, ufos)
+    
+    return lista_lugares2
+    
     
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -368,6 +416,30 @@ def CmpUfoByDuration(ufo1, ufo2):
     artwork2: informacion de la segunda obra que incluye su valor 'DateAcquired'
     """
     return float(ufo1["duration (seconds)"]) < float(ufo2["duration (seconds)"])
+
+def CmpPlace(ufo1, ufo2):
+
+    hour1 = round(float(ufo1), 2)
+    hour2 = round(float(ufo2), 2)
+
+    if (hour1 == hour2):
+        return 0
+    elif (hour1 > hour2):
+        return 1
+    else:
+        return -1
+
+def CmpLat(ufo1, ufo2):
+
+    hour1  = round(float(ufo1["latitude"]), 2)
+    hour2 = round(float(ufo2["latitude"]), 2)
+
+    if (hour1 == hour2):
+        return 0
+    elif (hour1 > hour2):
+        return 1
+    else:
+        return -1
 
 # Funciones de ordenamiento
 

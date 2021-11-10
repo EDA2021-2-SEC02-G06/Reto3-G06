@@ -106,6 +106,7 @@ while True:
             z += 1
             y += 1
         
+        
 
     elif int(inputs[0]) == 3:
         
@@ -173,7 +174,45 @@ while True:
         buscar_rango1 = controller.Ufos_Dia(lim_inf1, lim_sup1, cont)
 
     elif int(inputs[0]) == 8:
-        pass
+
+        print("")
+        print("Para los limites recordar que en cuanto a numeros negativos el menor es el negativo de mayor valor absoluto")
+        print("")
+        inf_long = float(input("Ingrese el limite inferior de la longitud geografica: "))
+        max_long = float(input("Ingrese el limite superior de la longitud geografica: "))
+        min_lat = float(input("Ingrese el limite inferior de la latitud geografica: "))
+        max_lat = float(input("Ingrese el limite superior de la latitud geografica: "))
+        print("")
+        print("")
+        obtener_datos = controller.Ufos_Coordenadas(inf_long, max_long, min_lat, max_lat, cont)
+        tamaño = lt.size(obtener_datos)
+        print("El total de avistamientos dentro del area es: " + str(tamaño))
+        print("")
+        print("Los primeros 5 avistamientos son: ")
+        print("")
+        ii = 0
+        for valores in lt.iterator(obtener_datos):
+            if ii < 5:
+                print(valores["datetime"] + ("  ") + valores["city"] + ("  ") +  valores["country"] + ("  ") +  valores["shape"] + ("  ") +  valores["duration (seconds)"] + ("  ") +  valores["longitude"] + ("  ") +  valores["latitude"])
+                print("-----------------------------------------------------------")        
+            else: 
+                break
+            ii += 1
+
+        print("")
+        print("Los ultimos 5 avistamientos son: ")
+        print("")
+        yy = 0
+        zz = tamaño - 4
+        for valores in lt.iterator(obtener_datos):
+
+            if yy > zz:
+                print(valores["datetime"] + ("  ") + valores["city"] + ("  ") +  valores["country"] + ("  ") +  valores["shape"] + ("  ") +  valores["duration (seconds)"] + ("  ") +  valores["longitude"] + ("  ") +  valores["latitude"])
+                print("-----------------------------------------------------------")        
+            yy += 1
+
+
+
 
     elif int(inputs[0]) == 9:
         pass
