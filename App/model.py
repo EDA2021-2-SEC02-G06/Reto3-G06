@@ -176,29 +176,9 @@ def Avistamientos_Ciudad(cont, ciudad):
     
     r = ms.sort(avistamientos, CmpFechaHoraInvertido)
 
-    q = 0
-    for ufos in lt.iterator(avistamientos):
-
-        if q < 3:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        q += 1
-
-    print("")
-    print("**********************************************")
-    print("")
-
-    y = 0
-    z = lt.size(avistamientos) - 4
-    for ufos in lt.iterator(avistamientos):
-
-        if y > z:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        y += 1
     
 
-    return None
+    return avistamientos
 
 def Ufos_Hora(lim_inf, lim_sup, cont):
 
@@ -215,35 +195,9 @@ def Ufos_Hora(lim_inf, lim_sup, cont):
         for val in lt.iterator(valor):
 
             lt.addLast(lista_horas, val)
-            
-    
-    print("Total de avistamientos en el rango: " + str(lt.size(lista_horas)))
-    print("")
-    print("")
-    
-    q = 0
-    for ufos in lt.iterator(lista_horas):
-
-        if q < 3:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        q += 1
-
-    print("")
-    print("**********************************************")
-    print("")
-
-    y = 0
-    z = lt.size(lista_horas) - 4
-    for ufos in lt.iterator(lista_horas):
-
-        if y > z:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        y += 1
     
 
-    return None
+    return lista_horas
 
 def Ufos_Dia(lim_inf1, lim_sup1, cont):
 
@@ -261,34 +215,9 @@ def Ufos_Dia(lim_inf1, lim_sup1, cont):
 
             lt.addLast(lista_fechas, val)
             
-    
-    print("Total de avistamientos en el rango: " + str(lt.size(lista_fechas)))
-    print("")
-    print("")
-    
-    q = 0
-    for ufos in lt.iterator(lista_fechas):
 
-        if q < 3:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        q += 1
 
-    print("")
-    print("**********************************************")
-    print("")
-
-    y = 0
-    z = lt.size(lista_fechas) - 4
-    for ufos in lt.iterator(lista_fechas):
-
-        if y > z:
-            print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
-            print("-----------------------------------------------------------")        
-        y += 1
-    
-
-    return None
+    return lista_fechas
 
 def reqdos(minimo,mayor,cont):
 

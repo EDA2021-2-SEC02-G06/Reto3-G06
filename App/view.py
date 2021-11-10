@@ -121,7 +121,30 @@ while True:
         print("")
         print("")
         avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
-        
+        print("Total de avistamientos en la ciudad: " + str(lt.size(avistamientos)))
+        print("")
+        qqqq = 0
+        for ufosss in lt.iterator(avistamientos):
+
+            if qqqq < 3:
+                print(ufosss["datetime"] + ("  ") + ufosss["city"] + ("  ") + ufosss["country"] + ("  ") + ufosss["duration (seconds)"] + ("  ") + ufosss["shape"])
+                print("-----------------------------------------------------------")        
+            qqqq += 1
+
+        print("")
+        print("**********************************************")
+        print("")
+
+        yyyy = 0
+        zzzz = lt.size(avistamientos) - 4
+        for ufoss in lt.iterator(avistamientos):
+
+            if yyyy > zzzz:
+                print(ufoss["datetime"] + ("  ") + ufoss["city"] + ("  ") + ufoss["country"] + ("  ") + ufoss["duration (seconds)"] + ("  ") + ufoss["shape"])
+                print("-----------------------------------------------------------")        
+            yyyy += 1
+    
+
     elif int(inputs[0]) == 5:
         
         menor = round(float((input("Ingrese el primer valor del rango (seg): "))),1)
@@ -163,7 +186,31 @@ while True:
         print("")
         lim_sup = input("Ingrese la hora mas alta (mas tardia) que desea buscar: ")
         print("")
-        buscar_rango = controller.Ufos_Hora(lim_inf, lim_sup, cont)
+        lista_horas = controller.Ufos_Hora(lim_inf, lim_sup, cont)
+        print("Total de avistamientos en el rango: " + str(lt.size(lista_horas)))
+        print("")
+        print("")
+        
+        qqq = 0
+        for ufos in lt.iterator(lista_horas):
+
+            if qqq < 3:
+                print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+                print("-----------------------------------------------------------")        
+            qqq += 1
+
+        print("")
+        print("**********************************************")
+        print("")
+
+        yyy = 0
+        zzz = lt.size(lista_horas) - 4
+        for ufos in lt.iterator(lista_horas):
+
+            if yyy > zzz:
+                print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+                print("-----------------------------------------------------------")        
+            yyy += 1
         
     elif int(inputs[0]) == 7:
         print("")
@@ -171,7 +218,31 @@ while True:
         print("")
         lim_sup1 = input("Ingrese el día mas alto (mas moderno) que desea buscar: ")
         print("")
-        buscar_rango1 = controller.Ufos_Dia(lim_inf1, lim_sup1, cont)
+        lista_fechas = controller.Ufos_Dia(lim_inf1, lim_sup1, cont)
+        print("Total de avistamientos en el rango: " + str(lt.size(lista_fechas)))
+        print("")
+        print("")
+        
+        q = 0
+        for ufos in lt.iterator(lista_fechas):
+
+            if q < 3:
+                print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+                print("-----------------------------------------------------------")        
+            q += 1
+
+        print("")
+        print("**********************************************")
+        print("")
+
+        y = 0
+        z = lt.size(lista_fechas) - 4
+        for ufos in lt.iterator(lista_fechas):
+
+            if y > z:
+                print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
+                print("-----------------------------------------------------------")        
+            y += 1
 
     elif int(inputs[0]) == 8:
 
