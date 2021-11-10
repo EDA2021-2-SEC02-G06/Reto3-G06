@@ -58,6 +58,9 @@ def newAnalyzer():
                                         comparefunction=CmpCity)
     analyzer["hourIndex"] = om.newMap(omaptype = "RBT",
                                         comparefunction=CmpHour)
+    analyzer["duracionIndex"] = om.newMap(omaptype = "RBT",
+                                        comparefunction=CmpHour)
+    
 
     return analyzer
 # Funciones para agregar informacion al catalogo
@@ -68,6 +71,7 @@ def addUfo(analyzer, ufo):
     updateDateIndex(analyzer["dateIndex"], ufo)
     updateCityIndex(analyzer["cityIndex"], ufo)
     updateHourIndex(analyzer["hourIndex"], ufo)
+    updateDuracionIndex(analyzer["duracionIndex"],ufo)
 
     return analyzer
 
@@ -124,7 +128,20 @@ def updateHourIndex(map, ufo):
         me.setValue(entry, date_entry)
 
     return map
+def updateDuracionIndex(map, ufo):
 
+    duracion = round((float(ufo["duration (seconds)"])),1)
+    entry = om.get(map, duracion)
+
+    if entry is None:
+        lista_ufos = lt.newList("ARRAY_LIST")
+        lt.addLast(lista_ufos, ufo)
+        city_entry = lista_ufos
+        om.put(map, duracion, city_entry)
+    else:
+        city_entry = me.getValue(entry)
+        lt.addLast(city_entry, ufo)
+        me.setValue(entry, city_entry)
 """
 
 """
@@ -253,10 +270,58 @@ def Ufos_Dia(lim_inf1, lim_sup1, cont):
 
     return None
 
+def reqdos(minimo,mayor,cont):
+
+
+    rango = om.values(cont,minimo,mayor)
+    num = 0
+    lista = lt.newList("ARRAY_LIST")
+
+
+    for i in lt.iterator(rango):
+        tamaño = lt.size(i)
+        num += tamaño
+        for ufo in lt.iterator(i):
+            lt.addLast(lista,ufo)
+    
+    lista_ord = sa.sort(lista,CmpUfoByDuration)
+
+    return lista_ord,num
+
+def req2fl(lista):
+    contador = 0
+    
+    contador_dos = lt.size(lista) - 3
+    nueva_lista = lt.newList("ARRAY_LIST")
+
+    for i in lt.iterator(lista):
+        if contador < 3:
+            lt.addFirst(nueva_lista,i)
+        if contador >= contador_dos:
+            lt.addLast(nueva_lista,i)
+        contador += 1
+    
+    return nueva_lista
+
+def req2ultimos(lista):
+
+    return lista
+
+def keymaxima(arbol):
+
+    return om.maxKey(arbol)
+
+def ufomaxima(arbol,llave):
+
+    return om.get(arbol,llave)
+
+def num_ufomax(lista):
+
+    return lt.size(lista["value"])
+    
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
-# Funciones de ordenamiento
 def CmpDates(date1, date2):
 
     if (date1 == date2):
@@ -294,3 +359,16 @@ def CmpHour(hour1, hour2):
         return 1
     else:
         return -1
+
+def CmpUfoByDuration(ufo1, ufo2):
+    """
+    Devuelve verdadero (True) si el 'Date' de artwork1 es menores que el de artwork2
+    Args:
+    artwork1: informacion de la primera obra que incluye su valor 'DateAcquired'
+    artwork2: informacion de la segunda obra que incluye su valor 'DateAcquired'
+    """
+    return float(ufo1["duration (seconds)"]) < float(ufo2["duration (seconds)"])
+
+# Funciones de ordenamiento
+
+

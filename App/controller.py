@@ -63,3 +63,24 @@ def Ufos_Dia(lim_inf1, lim_sup1, cont):
 
     return model.Ufos_Dia(lim_inf1, lim_sup1, cont)
 
+def reqdos(minimo,mayor,cont):
+
+    return model.reqdos(minimo,mayor,cont)
+
+def keymaxima(mapa):
+    
+    return model.keymaxima(mapa)
+
+def ufomaxima(arbol,llave):
+
+    return model.ufomaxima(arbol,llave)
+
+def req2fl(lista):
+
+    return model.req2fl(lista)
+
+def num_ufomax(lista):
+    
+    return model.num_ufomax(lista)
+
+

@@ -20,7 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-import config as cf
+import config as cf 
 import sys
 import controller
 from DISClib.ADT import list as lt
@@ -122,7 +122,39 @@ while True:
         avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
         
     elif int(inputs[0]) == 5:
-        pass
+        
+        menor = round(float((input("Ingrese el primer valor del rango (seg): "))),1)
+        mayor = round(float((input("Ingrese el último valor del rango (seg): "))),1)
+
+        key_maxima = controller.keymaxima(cont["duracionIndex"])
+        ufo_maximo =  controller.ufomaxima(cont["duracionIndex"],key_maxima)
+        num_ufomax = controller.num_ufomax(ufo_maximo)
+
+        avistamientos,num_avistamientos = controller.reqdos(menor, mayor,cont["duracionIndex"])
+        fl = controller.req2fl(avistamientos)
+
+        
+        print("============== Req No.2 Datos ===============")
+        print("Avistamientos con duración entre " + str(menor) + " y " + str(mayor))
+        print(" ")
+
+        print("============ Req No.2 Respuestas ============")
+        print("La duración más larga en los avistamientos es de : " + str(key_maxima) + " segundos. Un total de: " + str(num_ufomax) + " avistamiento/s dura/n esto.")
+        print(" ")
+
+        print("====================================================================================")
+        print("Se registran " + str(num_avistamientos) + " avsitamientos entre los " + str(menor) + " y " + str(mayor) + " segundos de duración.")
+        print("Los primeros y últimos tres avistamientos de OVNIS en el rango de duración de segundos son:")
+        print(" ")
+        
+        for i in lt.iterator(fl):
+            print(i["datetime"] + " | " + i["city"] + " | " + i["state"] + " | " + i["country"] + " | " + i["shape"] + " | " + i["duration (seconds)"])
+            print("====================================================================================")   
+           
+        
+        
+
+        
 
     elif int(inputs[0]) == 6:
         print("")
