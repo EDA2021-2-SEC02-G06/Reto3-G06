@@ -35,12 +35,9 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
-StartTime = time.process_time()
-StopTime = time.process_time()
-ElapsedTime = (StopTime - StartTime)*1000
-print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
-ufo_file = "UFOS//UFOS-utf8-small.csv"
+
+ufo_file = "UFOS//UFOS-utf8-10pct.csv"
 cont = None
 
 def printMenu():
