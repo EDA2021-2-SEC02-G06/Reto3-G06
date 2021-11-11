@@ -23,6 +23,7 @@
 import config as cf 
 import sys
 import controller
+import time
 from DISClib.ADT import list as lt
 assert cf
 from DISClib.ADT import orderedmap as om
@@ -34,6 +35,10 @@ Presenta el menu de opciones y por cada seleccion
 se hace la solicitud al controlador para ejecutar la
 operación solicitada
 """
+StartTime = time.process_time()
+StopTime = time.process_time()
+ElapsedTime = (StopTime - StartTime)*1000
+print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
 ufo_file = "UFOS//UFOS-utf8-small.csv"
 cont = None
@@ -109,17 +114,21 @@ while True:
         
 
     elif int(inputs[0]) == 3:
-        
+        StartTime = time.process_time()
         cantidad_arbol_ciudad = om.size(cont["cityIndex"])
         print("Numero de ciudades: " + str(cantidad_arbol_ciudad))
         altura_arbol_ciudad = om.height(cont["cityIndex"])
         print("Altura del arbol ciudades: " + str(altura_arbol_ciudad))
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
     elif int(inputs[0]) == 4:
 
         ciudad = input("Que ciudad desea revisar: ")
         print("")
         print("")
+        StartTime = time.process_time()
         avistamientos = controller.Avistamientos_Ciudad(cont, ciudad)
         print("Total de avistamientos en la ciudad: " + str(lt.size(avistamientos)))
         print("")
@@ -143,6 +152,9 @@ while True:
                 print(ufoss["datetime"] + ("  ") + ufoss["city"] + ("  ") + ufoss["country"] + ("  ") + ufoss["duration (seconds)"] + ("  ") + ufoss["shape"])
                 print("-----------------------------------------------------------")        
             yyyy += 1
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
     
 
     elif int(inputs[0]) == 5:
@@ -150,6 +162,7 @@ while True:
         menor = round(float((input("Ingrese el primer valor del rango (seg): "))),1)
         mayor = round(float((input("Ingrese el último valor del rango (seg): "))),1)
 
+        StartTime = time.process_time()
         key_maxima = controller.keymaxima(cont["duracionIndex"])
         ufo_maximo =  controller.ufomaxima(cont["duracionIndex"],key_maxima)
         num_ufomax = controller.num_ufomax(ufo_maximo)
@@ -174,7 +187,11 @@ while True:
         for i in lt.iterator(fl):
             print(i["datetime"] + " | " + i["city"] + " | " + i["state"] + " | " + i["country"] + " | " + i["shape"] + " | " + i["duration (seconds)"])
             print("====================================================================================")   
-           
+        
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
+    
         
         
 
@@ -186,6 +203,7 @@ while True:
         print("")
         lim_sup = input("Ingrese la hora mas alta (mas tardia) que desea buscar: ")
         print("")
+        StartTime = time.process_time()
         lista_horas = controller.Ufos_Hora(lim_inf, lim_sup, cont)
         print("Total de avistamientos en el rango: " + str(lt.size(lista_horas)))
         print("")
@@ -212,12 +230,17 @@ while True:
                 print("-----------------------------------------------------------")        
             yyy += 1
         
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
+        
     elif int(inputs[0]) == 7:
         print("")
         lim_inf1 = input("Ingrese el día mas bajo (mas antiguo) que desea buscar: ")
         print("")
         lim_sup1 = input("Ingrese el día mas alto (mas moderno) que desea buscar: ")
         print("")
+        StartTime = time.process_time()
         lista_fechas = controller.Ufos_Dia(lim_inf1, lim_sup1, cont)
         print("Total de avistamientos en el rango: " + str(lt.size(lista_fechas)))
         print("")
@@ -243,6 +266,10 @@ while True:
                 print(ufos["datetime"] + ("  ") + ufos["city"] + ("  ") + ufos["country"] + ("  ") + ufos["duration (seconds)"] + ("  ") + ufos["shape"])
                 print("-----------------------------------------------------------")        
             y += 1
+        
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
     elif int(inputs[0]) == 8:
 
@@ -255,6 +282,7 @@ while True:
         max_lat = float(input("Ingrese el limite superior de la latitud geografica: "))
         print("")
         print("")
+        StartTime = time.process_time()
         obtener_datos = controller.Ufos_Coordenadas(inf_long, max_long, min_lat, max_lat, cont)
         tamaño = lt.size(obtener_datos)
         print("El total de avistamientos dentro del area es: " + str(tamaño))
@@ -281,6 +309,10 @@ while True:
                 print(valores["datetime"] + ("  ") + valores["city"] + ("  ") +  valores["country"] + ("  ") +  valores["shape"] + ("  ") +  valores["duration (seconds)"] + ("  ") +  valores["longitude"] + ("  ") +  valores["latitude"])
                 print("-----------------------------------------------------------")        
             yy += 1
+        
+        StopTime = time.process_time()
+        ElapsedTime = (StopTime - StartTime)*1000
+        print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
 
 
