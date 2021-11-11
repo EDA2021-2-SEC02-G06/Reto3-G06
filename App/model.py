@@ -221,25 +221,19 @@ def Ufos_Dia(lim_inf1, lim_sup1, cont):
 
 def reqdos(minimo,mayor,cont):
 
-
     rango = om.values(cont,minimo,mayor)
     num = 0
     lista = lt.newList("ARRAY_LIST")
-
-
     for i in lt.iterator(rango):
         tamaño = lt.size(i)
         num += tamaño
         for ufo in lt.iterator(i):
             lt.addLast(lista,ufo)
-    
     lista_ord = sa.sort(lista,CmpUfoByDuration)
-
     return lista_ord,num
 
 def req2fl(lista):
     contador = 0
-    
     contador_dos = lt.size(lista) - 3
     nueva_lista = lt.newList("ARRAY_LIST")
 
@@ -249,12 +243,7 @@ def req2fl(lista):
         if contador >= contador_dos:
             lt.addLast(nueva_lista,i)
         contador += 1
-    
     return nueva_lista
-
-def req2ultimos(lista):
-
-    return lista
 
 def keymaxima(arbol):
 

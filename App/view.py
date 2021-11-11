@@ -37,7 +37,7 @@ operación solicitada
 """
 
 
-ufo_file = "UFOS//UFOS-utf8-10pct.csv"
+ufo_file = "UFOS//UFOS-utf8-80pct.csv"
 cont = None
 
 def printMenu():
