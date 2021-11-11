@@ -124,7 +124,7 @@ while True:
         print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
     elif int(inputs[0]) == 4:
-
+        """REQ1"""
         ciudad = input("Que ciudad desea revisar: ")
         print("")
         print("")
@@ -158,7 +158,7 @@ while True:
     
 
     elif int(inputs[0]) == 5:
-        
+        """REQ2"""
         menor = round(float((input("Ingrese el primer valor del rango (seg): "))),1)
         mayor = round(float((input("Ingrese el último valor del rango (seg): "))),1)
 
@@ -198,6 +198,7 @@ while True:
         
 
     elif int(inputs[0]) == 6:
+        """REQ3"""
         print("")
         lim_inf = input("Ingrese la hora mas baja (mas temprana) que desea buscar: ")
         print("")
@@ -235,6 +236,7 @@ while True:
         print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
         
     elif int(inputs[0]) == 7:
+        """REQ4"""
         print("")
         lim_inf1 = input("Ingrese el día mas bajo (mas antiguo) que desea buscar: ")
         print("")
@@ -272,7 +274,7 @@ while True:
         print("Tiempo de ejecución de:  " + str(ElapsedTime) + " mseg")
 
     elif int(inputs[0]) == 8:
-
+        """REQ5"""
         print("")
         print("Para los limites recordar que en cuanto a numeros negativos el menor es el negativo de mayor valor absoluto")
         print("")
