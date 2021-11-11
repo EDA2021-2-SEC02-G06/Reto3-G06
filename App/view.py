@@ -286,7 +286,7 @@ while True:
         tamaño = lt.size(obtener_datos)
         print("El total de avistamientos dentro del area es: " + str(tamaño))
         print("")
-        print("Los primeros 5 avistamientos son: ")
+        print("Los primeros 5 avistamientos ordenados por longitud de manera descendente son: ")
         print("")
         ii = 0
         for valores in lt.iterator(obtener_datos):
@@ -298,13 +298,13 @@ while True:
             ii += 1
 
         print("")
-        print("Los ultimos 5 avistamientos son: ")
+        print("Los ultimos 5 avistamientos ordenados por longitud de manera descendente son: ")
         print("")
         yy = 0
-        zz = tamaño - 4
+        zz = tamaño - 5
         for valores in lt.iterator(obtener_datos):
 
-            if yy > zz:
+            if yy >= zz:
                 print(valores["datetime"] + ("  ") + valores["city"] + ("  ") +  valores["country"] + ("  ") +  valores["shape"] + ("  ") +  valores["duration (seconds)"] + ("  ") +  valores["longitude"] + ("  ") +  valores["latitude"])
                 print("-----------------------------------------------------------")        
             yy += 1
